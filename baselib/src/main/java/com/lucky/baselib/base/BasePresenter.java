@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Created by liuxuehao on 16/12/26.
+ * Presenter基础类
  */
 
 public abstract class BasePresenter {

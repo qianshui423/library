@@ -32,6 +32,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -48,10 +52,10 @@ dependencies {
 }
 
 publish {
-    userOrg = 'lucky'
+    userOrg = 'qianshui423'
     groupId = 'com.lucky'
     artifactId = 'baselib'
-    publishVersion = '1.0.0'
+    publishVersion = android.defaultConfig.versionName
     desc = 'baselib－基础架构库'
-    website = ''
+    website = 'https://github.com/qianshui423/library'
 }

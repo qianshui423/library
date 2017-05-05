@@ -21,6 +21,7 @@ import static android.view.View.inflate;
 
 /**
  * Created by liuxuehao on 16/12/26.
+ * Activity基础类
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity
         implements View.OnClickListener, IBaseView {
@@ -159,11 +160,10 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     }
 
     /**
-     * 加载自定义View进入Toolbar,返回自定义View
-     * PS:自行控制View事件
+     * 自定义toolbar
      *
-     * @param layoutRes
-     * @return customView
+     * @param layoutRes 需要自定义的toolbar布局
+     * @return customView 返回自定义后的布局
      */
     protected View enableCustomView(int layoutRes) {
         View customView = enableCustomTitle(layoutRes);
