@@ -9,7 +9,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/BaseTheme">
+
+        <activity
+            android:name=".baselib.BaselibActivity"
+            android:label="@string/baselib_name"/>
 
     </application>
 

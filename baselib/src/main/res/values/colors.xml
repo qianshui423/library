@@ -5,5 +5,5 @@
     <!--状态栏底色-->
     <color name="colorPrimaryDark">#F9F9F9</color>
     <!--按钮选中或者点击获得焦点后的颜色-->
-    <color name="colorAccent">#FF571A</color>
+    <color name="colorAccent">#1A1A1A</color>
 </resources>

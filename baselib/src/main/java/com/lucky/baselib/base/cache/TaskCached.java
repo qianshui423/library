@@ -81,8 +81,8 @@ public class TaskCached {
     public void executeTask() {
         if (TextUtils.isEmpty(mCurrentKey)) throw new RuntimeException("没有指定有效的任务Key");
 
-        Flowable flowable = mEngineCached.get(mCurrentKey);
-        DisposableSubscriber disposableSubscriber = mTaskCached.get(mCurrentKey);
+        Flowable<Object> flowable = mEngineCached.get(mCurrentKey);
+        DisposableSubscriber<Object> disposableSubscriber = mTaskCached.get(mCurrentKey);
 
         if (null == disposableSubscriber || null == flowable)
             throw new RuntimeException("执行任务前要首先指定Engine和Task");

@@ -1,6 +1,7 @@
 package com.lucky.baselib.base;
 
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lucky.baselib.R;
+import com.lucky.baselib.base.widget.TitleBar;
 
 import static android.view.View.inflate;
 
@@ -24,14 +26,10 @@ import static android.view.View.inflate;
  * Activity基础类
  */
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity
-        implements View.OnClickListener, IBaseView {
+        implements TitleBar.OnTitleBarClickListener, IBaseView {
 
     protected LinearLayout mRootLayout;
-    protected ConstraintLayout mSimpleLayout;
-    protected Toolbar mToolbar;
-    protected ImageView mBack;
-    protected TextView mTitle;
-    protected ImageView mOptions;
+    protected TitleBar mTitleBar;
 
     protected T mPresenter;
 
@@ -42,7 +40,6 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
         initViews();
         initToolbar();
-        initListeners();
 
         mPresenter = createPresenter();
         if (null != mPresenter) mPresenter.attachView(this);
@@ -54,61 +51,20 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         if (null != mPresenter) mPresenter.detachView();
     }
 
-    @Override
-    public void onClick(View v) {
-        int id = v.getId();
-        if (id == R.id.base_toolbar_back) {
-            back();
-        } else if (id == R.id.base_toolbar_title) {
-            titleClick();
-        } else if (id == R.id.base_toolbar_options) {
-            optionsClick();
-        }
-    }
-
-    protected void back() {
-        finish();
-    }
-
-    protected void titleClick() {
-
-    }
-
-    protected void optionsClick() {
-
-    }
-
-    @Override
-    public void onBackPressed() {
-        back();
-    }
-
     private void initViews() {
         mRootLayout = (LinearLayout) findViewById(R.id.baselib_root_layout);
-        mSimpleLayout = (ConstraintLayout) findViewById(R.id.baselib_toolbar_simple);
-        mToolbar = (Toolbar) findViewById(R.id.base_toolbar);
-        mBack = (ImageView) findViewById(R.id.base_toolbar_back);
-        mTitle = (TextView) findViewById(R.id.base_toolbar_title);
-        mOptions = (ImageView) findViewById(R.id.base_toolbar_options);
+        mTitleBar = (TitleBar) findViewById(R.id.titlebar_container);
     }
 
     protected void initToolbar() {
-        if (null != mToolbar) {
-            setSupportActionBar(mToolbar);
+        if (null != mTitleBar.getToolBar()) {
+            setSupportActionBar(mTitleBar.getToolBar());
         }
 
-        if (null != mTitle) {
-            this.getSupportActionBar().setDisplayShowTitleEnabled(false);
-        }
+        this.getSupportActionBar().setDisplayShowTitleEnabled(false);
     }
 
-    protected void initListeners() {
-        mBack.setOnClickListener(this);
-        mTitle.setOnClickListener(this);
-        mOptions.setOnClickListener(this);
-    }
-
-    public void setContentView(int layoutId) {
+    public void setContentView(@LayoutRes int layoutId) {
         setContentView(inflate(this, layoutId, null));
     }
 
@@ -131,51 +87,28 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
     @Override
     protected void onTitleChanged(CharSequence title, int color) {
         super.onTitleChanged(title, color);
-        if (TextUtils.isEmpty(mTitle.getText())) {
-            mTitle.setText(title);
+        if (TextUtils.isEmpty(mTitleBar.getTitle())) {
+            mTitleBar.setOnlyTitleWithNoChange(title.toString());
         }
-    }
-
-    protected void resetTitle() {
-        for (int i = mToolbar.getChildCount() - 1; i > 0; i--) {
-            mToolbar.removeViewAt(i);
-        }
-        mBack.setVisibility(View.GONE);
-        mTitle.setText("");
-        mOptions.setVisibility(View.GONE);
-        mSimpleLayout.setVisibility(View.VISIBLE);
-        mToolbar.setVisibility(View.VISIBLE);
-    }
-
-    /**
-     * 自定义标题栏
-     *
-     * @param layoutRest
-     * @return
-     */
-    private View enableCustomTitle(int layoutRest) {
-        resetTitle();
-        mSimpleLayout.setVisibility(View.GONE);
-        return LayoutInflater.from(this).inflate(layoutRest, null);
-    }
-
-    /**
-     * 自定义toolbar
-     *
-     * @param layoutRes 需要自定义的toolbar布局
-     * @return customView 返回自定义后的布局
-     */
-    protected View enableCustomView(int layoutRes) {
-        View customView = enableCustomTitle(layoutRes);
-        mToolbar.addView(customView, new RelativeLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.WRAP_CONTENT
-        ));
-        return customView;
     }
 
     protected T createPresenter() {
         return null;
+    }
+
+    @Override
+    public void onClickBack() {
+        super.onBackPressed();
+    }
+
+    @Override
+    public void onClickTitle() {
+
+    }
+
+    @Override
+    public void onClickOptions() {
+
     }
 
     @Override
