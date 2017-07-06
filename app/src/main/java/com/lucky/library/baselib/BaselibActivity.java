@@ -1,6 +1,8 @@
 package com.lucky.library.baselib;
 
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StatFs;
 import android.support.annotation.Nullable;
 
 import com.lucky.baselib.base.BaseActivity;
@@ -17,13 +19,18 @@ public class BaselibActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.baselib_activity_base);
+        setContentView(R.layout.activity_baselib);
 
         initViews();
+
+        StatFs statFs = new StatFs(Environment.getExternalStorageDirectory().getAbsolutePath());
+        statFs.getBlockSize();
+        statFs.getBlockCount();
+        statFs.getAvailableBlocks();
     }
 
     private void initViews() {
-        mTitleBar = (TitleBar) findViewById(R.id.titlebar_container);
+        mTitleBar = (TitleBar) findViewById(R.id.tb_titlebar);
 
         mTitleBar.setDefaultBackAndOptions(R.mipmap.ic_launcher, R.mipmap.ic_launcher);
     }

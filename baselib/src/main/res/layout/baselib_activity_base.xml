@@ -6,6 +6,7 @@
               android:orientation="vertical">
 
     <com.lucky.baselib.base.widget.TitleBar
+        android:id="@+id/tb_titlebar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 

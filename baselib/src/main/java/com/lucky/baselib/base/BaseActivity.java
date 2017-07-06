@@ -53,7 +53,7 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
 
     private void initViews() {
         mRootLayout = (LinearLayout) findViewById(R.id.baselib_root_layout);
-        mTitleBar = (TitleBar) findViewById(R.id.titlebar_container);
+        mTitleBar = (TitleBar) findViewById(R.id.tb_titlebar);
     }
 
     protected void initToolbar() {

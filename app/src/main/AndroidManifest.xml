@@ -13,7 +13,13 @@
 
         <activity
             android:name=".baselib.BaselibActivity"
-            android:label="@string/baselib_name"/>
+            android:label="@string/baselib_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
 
     </application>
 
